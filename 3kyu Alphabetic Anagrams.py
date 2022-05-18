@@ -13,7 +13,6 @@ def listPosition(word):
     print(b)
     print(sorted_list)
     for letter in word_list:
-        rankV = rank
         n = sorted_list.index(letter)
         sorted_list.remove(letter)
         v = len(sorted_list)
