@@ -38,6 +38,7 @@ class User:
     def rank(self):
         return self.ranking[self.n]
 
+
 user = User()
 user.inc_progress(-8)
 print(user.progress)

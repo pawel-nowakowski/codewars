@@ -8,8 +8,8 @@ def to_weird_case(string):
         if k % 2 == 0:
             string[i] = string[i].upper()
         k += 1
-    string = ''.join(string)
+    string = "".join(string)
     return string
 
 
-to_weird_case('This is a test')
+to_weird_case("This is a test")

@@ -6,8 +6,11 @@ for indexU in range(300000):
     u.append(z)
 u = sorted(list(set(u)))
 
+
 def dbl_linear(n):
     return u[n]
+
+
 print(u)
 print(len(u))
 print(dbl_linear(60000))

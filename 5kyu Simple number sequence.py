@@ -1,7 +1,7 @@
 def missing(s):
     n = 1
     while n < len(s):
-        new_list = [s[i:i + n] for i in range(0, len(s), n)]
+        new_list = [s[i : i + n] for i in range(0, len(s), n)]
         a = 0
         for i in range(len(new_list)):
             if str(int(new_list[0]) + i) not in s:
@@ -15,7 +15,6 @@ def missing(s):
             return k
         n += 1
     return -1
-
 
 
 print(missing("998999100010011003"))

@@ -1,5 +1,6 @@
 import operator
 
+
 def determinant(matrix):
     length = len(matrix)
     matrix_determinant = 1
@@ -33,7 +34,7 @@ def determinant(matrix):
                 while k < length:
                     if matrix[i][j] != 0:
                         a = (matrix[i + l][j] / matrix[i][j]) * -1
-                        list_copy = [a*x for x in matrix[i]]
+                        list_copy = [a * x for x in matrix[i]]
                     else:
                         list_copy = None
                     matrix[k] = list(map(operator.add, matrix[k], list_copy))
@@ -45,8 +46,20 @@ def determinant(matrix):
             matrix_determinant *= matrix[i][i]
         return round(matrix_determinant)
 
-#print(determinant([[1,3], [2,5]]))
-print(determinant([[2,4,2],[3,1,1],[1,2,0]]))
-print(determinant([[2,5,3], [1,-2,-1], [1,3,4]]))
-print(determinant([[2,5,3,-1], [1,-2,-1,0], [1,3,4,-3], [2,1,-1,3]]))
-print(determinant([[2, 4, 5, 3, 1, 2], [2, 4, 7, 5, 3, 2], [1, 1, 0, 2, 3, 1], [1, 3, 9, 0, 3, 2], [1, 1, 2, 2, 4, 1], [0, 0, 4, 1, 2, 3]]))
+
+# print(determinant([[1,3], [2,5]]))
+print(determinant([[2, 4, 2], [3, 1, 1], [1, 2, 0]]))
+print(determinant([[2, 5, 3], [1, -2, -1], [1, 3, 4]]))
+print(determinant([[2, 5, 3, -1], [1, -2, -1, 0], [1, 3, 4, -3], [2, 1, -1, 3]]))
+print(
+    determinant(
+        [
+            [2, 4, 5, 3, 1, 2],
+            [2, 4, 7, 5, 3, 2],
+            [1, 1, 0, 2, 3, 1],
+            [1, 3, 9, 0, 3, 2],
+            [1, 1, 2, 2, 4, 1],
+            [0, 0, 4, 1, 2, 3],
+        ]
+    )
+)

@@ -1,24 +1,19 @@
-def num_to_card(list_of_numbers):
-    for n, number in enumerate(list_of_numbers):
-        if number == 14:
-            list_of_numbers[n] = "A"
-        elif number == 13:
-            list_of_numbers[n] = "K"
-        elif number == 12:
-            list_of_numbers[n] = "Q"
-        elif number == 11:
-            list_of_numbers[n] = "J"
-        else:
-            list_of_numbers[n] = str(number)
-    return list_of_numbers
+from typing import List
 
-def hand(hole_cards, community_cards):
+
+def hand(hole_cards: List, community_cards: List) -> tuple:
+    """
+    3 kyu texas holden hands https://www.codewars.com/kata/524c74f855025e2495000262
+    :param hole_cards: cards in your hand
+    :param community_cards: cards on the table
+    :return: list what type of hand has won and list of 5 cards
+    """
     all_cards = hole_cards + community_cards
     all_cards_to_num, cards_to_ret, counted_cards, pair_check = [], [], [], []
     spades, clubs, hearts, diamonds = 0, 0, 0, 0
     flush = False
     pair_counter, straight_counter, straight_flush_counter = 0, 0, 0
-    hand_type = 'nothing'
+    hand_type = "nothing"
     for card in all_cards:
         if card[0] == "A":
             rank = 14
@@ -37,13 +32,13 @@ def hand(hole_cards, community_cards):
     all_cards_to_num.sort(reverse=True)
     for card_and_color in all_cards_to_num:
         color = card_and_color[-1]
-        if color == "♠": #spades
+        if color == "♠":  # spades
             spades += 1
-        elif color == "♣": #clubs
+        elif color == "♣":  # clubs
             clubs += 1
-        elif color == "♥": #heart
+        elif color == "♥":  # heart
             hearts += 1
-        elif color == "♦": #diamond
+        elif color == "♦":  # diamond
             diamonds += 1
     if spades >= 5 or clubs >= 5 or hearts >= 5 or diamonds >= 5:
         new_list = all_cards_to_num
@@ -63,9 +58,9 @@ def hand(hole_cards, community_cards):
                 break
     for count, card_and_color in enumerate(all_cards_to_num):
         try:
-            if all_cards_to_num[count][0] == all_cards_to_num[count+1][0]:
+            if all_cards_to_num[count][0] == all_cards_to_num[count + 1][0]:
                 continue
-            elif all_cards_to_num[count][0] == all_cards_to_num[count+1][0] + 1:
+            elif all_cards_to_num[count][0] == all_cards_to_num[count + 1][0] + 1:
                 straight_counter += 1
                 if straight_counter == 4:
                     break
@@ -80,10 +75,13 @@ def hand(hole_cards, community_cards):
         hand_type = "straight-flush"
         for count, card_and_color in enumerate(all_cards_to_num):
             try:
-                if all_cards_to_num[count][0] == all_cards_to_num[count + 1][0] + 1 and all_cards_to_num[count][1] == all_cards_to_num[count+1][1]:
+                if (
+                    all_cards_to_num[count][0] == all_cards_to_num[count + 1][0] + 1
+                    and all_cards_to_num[count][1] == all_cards_to_num[count + 1][1]
+                ):
                     cards_to_ret.append(all_cards_to_num[count][0])
                     if len(cards_to_ret) == 4:
-                        cards_to_ret.append(all_cards_to_num[count+1][0])
+                        cards_to_ret.append(all_cards_to_num[count + 1][0])
                         break
                 else:
                     cards_to_ret = []
@@ -128,15 +126,15 @@ def hand(hole_cards, community_cards):
                 elif all_cards_to_num[count][0] == all_cards_to_num[count + 1][0] + 1:
                     cards_to_ret.append(all_cards_to_num[count][0])
                     if len(cards_to_ret) == 4:
-                        cards_to_ret.append(all_cards_to_num[count+1][0])
+                        cards_to_ret.append(all_cards_to_num[count + 1][0])
                         break
                 else:
                     cards_to_ret = []
             except:
                 break
-    if flush == True:
-        hand_type = "flush"
 
+    if flush is True:
+        hand_type = "flush"
 
     if hand_type != "straight-flush":
         for v, k in counted_cards.items():
@@ -201,26 +199,49 @@ def hand(hole_cards, community_cards):
     cards_to_ret = num_to_card(cards_to_ret)
     return hand_type, cards_to_ret
 
-print(hand(['Q♦', '4♦'], ['10♦', '5♦', '9♦', '4♥', 'J♦']))
-print(hand(['7♣', '6♠'], ['4♦', '5♥', '4♠', '3♥', '3♦']))
-#print(hand(['7♦', '9♦'], ['8♣', '5♦', '8♦', '6♦', '2♠']))
-#print(hand(['2♦', '10♦'], ['9♦', '9♠', '4♦', '6♥', '7♦']))
-#print(hand(['5♠', '5♦'], ['J♥', 'A♥', '10♦', '10♥', '10♠']))
-print(hand(['2♠', '3♦'], ['2♣', '2♥', '3♠', '3♥', '2♦']))
-#('four-of-a-kind', ['2', '3'])
-print(hand(["K♠", "J♦"], ["J♣", "K♥", "9♥", "2♥", "3♦"]),)
-#("two pair", ["K", "J", "9"]),
+
+def num_to_card(list_of_numbers: List) -> List:
+    """
+    convert number back to card figure
+    :param list_of_numbers: list of cards as numbers
+    :return: list of cards as figures
+    """
+    for n, number in enumerate(list_of_numbers):
+        if number == 14:
+            list_of_numbers[n] = "A"
+        elif number == 13:
+            list_of_numbers[n] = "K"
+        elif number == 12:
+            list_of_numbers[n] = "Q"
+        elif number == 11:
+            list_of_numbers[n] = "J"
+        else:
+            list_of_numbers[n] = str(number)
+    return list_of_numbers
+
+
+print(hand(["Q♦", "4♦"], ["10♦", "5♦", "9♦", "4♥", "J♦"]))
+print(hand(["7♣", "6♠"], ["4♦", "5♥", "4♠", "3♥", "3♦"]))
+# print(hand(['7♦', '9♦'], ['8♣', '5♦', '8♦', '6♦', '2♠']))
+# print(hand(['2♦', '10♦'], ['9♦', '9♠', '4♦', '6♥', '7♦']))
+# print(hand(['5♠', '5♦'], ['J♥', 'A♥', '10♦', '10♥', '10♠']))
+print(hand(["2♠", "3♦"], ["2♣", "2♥", "3♠", "3♥", "2♦"]))
+# ('four-of-a-kind', ['2', '3'])
+print(
+    hand(["K♠", "J♦"], ["J♣", "K♥", "9♥", "2♥", "3♦"]),
+)
+# ("two pair", ["K", "J", "9"]),
 
 print(hand(["K♠", "A♦"], ["J♣", "Q♥", "9♥", "2♥", "3♦"]))
-#("nothing", ["A", "K", "Q", "J", "9"])
+# ("nothing", ["A", "K", "Q", "J", "9"])
 
 print(hand(["K♠", "Q♦"], ["J♣", "Q♥", "9♥", "2♥", "3♦"]))
-#("pair", ["Q", "K", "J", "9"])
+# ("pair", ["Q", "K", "J", "9"])
 
 print(hand(["4♠", "9♦"], ["J♣", "Q♥", "Q♠", "2♥", "Q♦"]))
-#("three-of-a-kind", ["Q", "J", "9"])
+# ("three-of-a-kind", ["Q", "J", "9"])
 
 print(hand(["8♠", "6♠"], ["7♠", "5♠", "9♠", "J♠", "10♠"]))
-#("straight-flush", ["J", "10", "9", "8", "7"])
+# ("straight-flush", ["J", "10", "9", "8", "7"])
 
-print(hand(['A♠', 'K♦'], ['J♥', '5♥', '10♥', 'Q♥', '3♥']))
+print(hand(["A♠", "K♦"], ["J♥", "5♥", "10♥", "Q♥", "3♥"]))

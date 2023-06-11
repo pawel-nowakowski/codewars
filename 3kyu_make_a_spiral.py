@@ -1,4 +1,12 @@
-def spiralize(n):
+from typing import List
+
+
+def spiralize(n: int) -> List:
+    """
+    creates a spiral i.e. with input 5 it will create 5x5 spiral
+    :param n: how big spiral must be
+    :return: spiral as list
+    """
     spiral = []
 
     for i in range(n):

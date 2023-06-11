@@ -1,5 +1,12 @@
 from math import factorial
-def listPosition(word):
+
+
+def list_position(word: str):
+    """
+    3kyu alphabetic anagrams https://www.codewars.com/kata/53e57dada0cb0400ba000688
+    :param word: the word
+    :return: rank of the word
+    """
     word_list = list(word)
     sorted_list = list(word)
     sorted_list.sort()
@@ -16,8 +23,8 @@ def listPosition(word):
         n = sorted_list.index(letter)
         sorted_list.remove(letter)
         v = len(sorted_list)
-        rank += n*(int(factorial(v)/c))
+        rank += n * (int(factorial(v) / c))
         if letter in a:
-            c = c/a[letter]
+            c = c / a[letter]
             a[letter] -= 1
     return rank
