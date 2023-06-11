@@ -1,39 +1,12 @@
-from itertools import combinations
+from typing import List
 
-battleField =   [[1, 0, 0, 0, 0, 1, 1, 0, 0, 0],
-                 [1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-                 [1, 0, 1, 0, 1, 1, 1, 0, 1, 0],
-                 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-                 [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-                 [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-battleField1 =  [[1, 0, 0, 0, 0, 1, 1, 0, 0, 0],
-                [1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-                [1, 0, 1, 0, 1, 1, 1, 0, 1, 0],
-                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-                [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
-                [0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
-battleField2 = [[1, 0, 0, 1, 1, 0, 0, 0, 1, 1],
-                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [1, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-                [1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
-                [0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
-                [0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-                [0, 1, 1, 0, 0, 0, 0, 0, 1, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]
-print(battleField2[9][1])
-def validate_battlefield(field):
+def validate_battlefield(field: List) -> bool:
+    """
+    checks if the battlefield for ship game is valid
+    :param field: battlefield with ships
+    :return: True if field is valid, False if invalid
+    """
     ship = [4, 3, 2, 1]
     for v in range(len(field)):
         for h in range(len(field[v])):
@@ -91,24 +64,84 @@ def validate_battlefield(field):
     else:
         return False
 
-def validity_check(fields):
+
+def validity_check(fields: tuple) -> tuple[int, int]:
+    """
+    checks if given cords are within the field
+    :param fields: tuple of cords to check
+    :return: tuple cords (x, y) if within range
+    """
     for field in fields:
         x, y = field
         if x in range(10) and y in range(10):
             yield x, y
 
 
-def vertical_fields(v, h):
+def vertical_fields(v: int, h: int) -> tuple:
+    """
+    checks vertical fields
+    :param v: vertical cord
+    :param h: horizontal cord
+    :return: tuple of valid fields that are within the battlefield
+    """
     return validity_check(((v + 1, h), (v - 1, h)))
 
 
-def horizontal_fields(v, h):
+def horizontal_fields(v: int, h: int) -> tuple:
+    """
+    checks horizontal fields
+    :param v: vertical cord
+    :param h: horizontal cord
+    :return: tuple of valid fields that are within the battlefield
+    """
     return validity_check(((v, h - 1), (v, h + 1)))
 
 
-def diagonally_bad_fields(v, h):
+def diagonally_bad_fields(v: int, h: int) -> tuple:
+    """
+    checks diagonal fields
+    :param v: vertical cord
+    :param h: horizontal cord
+    :return: tuple of valid diagonal fields that are within the battlefield
+    """
     return validity_check(((v + 1, h - 1), (v + 1, h + 1), (v - 1, h - 1), (v - 1, h + 1)))
 
-#print(validate_battlefield(battleField))
-#print(validate_battlefield(battleField1))
-print(validate_battlefield(battleField2))
+
+battleField =   [[1, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+                 [1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
+                 [1, 0, 1, 0, 1, 1, 1, 0, 1, 0],
+                 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+                 [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+                 [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+battleField1 =  [[1, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+                [1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
+                [1, 0, 1, 0, 1, 1, 1, 0, 1, 0],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+                [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+                [0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+battleField2 = [[1, 0, 0, 1, 1, 0, 0, 0, 1, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [1, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+                [1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+                [0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
+                [0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+                [0, 1, 1, 0, 0, 0, 0, 0, 1, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]
+
+
+if __name__ == '__main__':
+    print(validate_battlefield(battleField))
+    print(validate_battlefield(battleField1))
+    print(validate_battlefield(battleField2))

@@ -1,5 +1,7 @@
-for i in range(10):
-    print(i)
+a = [[1,2,3],[1,2],[1,2],[1,2],[1,2],[1,2],[1,2]]
+for i in range(len(a)):
+    if a[i][:2] == [1,2]:
+        del a[i]
+        break
 
-for i in range(11):
-    print(i)
+print(a)

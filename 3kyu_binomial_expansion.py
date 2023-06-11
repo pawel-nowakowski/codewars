@@ -1,6 +1,13 @@
 import re
+from typing import List
 
-def expand(formula):
+
+def expand(formula: str) -> str:
+    """
+    3kyu_binomial_expansion https://www.codewars.com/kata/540d0fdd3b6532e5c3000b5b
+    :param formula: formula to expand
+    :return: expanded formula as str
+    """
     expanded_formula = ''
     regex = "\((-?)(\d*)(\D)([+-])(\d*)\)\^(\d+)"
     split = re.findall(regex, formula)[0]
@@ -49,16 +56,27 @@ def expand(formula):
 
 
 def is_odd(number: int) -> bool:
+    """
+    checks if number is odd
+    :param number: number to check
+    :return: True if odd, False if even
+    """
     return bool(number % 2)
 
 
-def pascal_triangle(row: int) -> list:
+def pascal_triangle(row: int) -> List:
+    """
+    creates row in pascal triangle (without boundary values)
+    :param row: which row to create
+    :return: row in pascal triangle without boundary values
+    """
     if row in (0, 1):
         return []
     row_1 = [1, 1]
     for row in range(row - 1):
         row_2 = []
         for number in range(row + 1):
+            a = row_1[number: number + 2]
             row_2.append(sum(row_1[number: number + 2]))
         row_2.insert(0, 1)
         row_2.append(1)
@@ -74,3 +92,4 @@ print(expand("(-2a-4)^0"))    # returns "1"
 print(expand("(-12t+43)^2"))  # returns "144t^2-1032t+1849"
 print(expand("(r+0)^203"))    # returns "r^203"
 print(expand("(-x-1)^2"))     # returns "x^2+2x+1"
+print(pascal_triangle(5))
